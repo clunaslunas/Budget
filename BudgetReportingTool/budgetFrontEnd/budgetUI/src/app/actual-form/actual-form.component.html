@@ -1,0 +1,36 @@
+<app-actual-list></app-actual-list>
+<button type="button" (click)="setCreate()">Enter new actual</button>
+
+<div *ngIf="create">
+  <h1>
+    Create a new actual
+  </h1>
+  <form (ngSubmit)="onSubmit(actualForm)" #actualForm="ngForm">
+    <div ngModelGroup="actualModel" #projectCtrl="ngModelGroup">
+      <label for="project">Project:</label>
+          <select id="project" required [(ngModel)]="actualModel.project" name="project">
+            <option *ngFor="let project of projects" [value]="project._links.self.href">{{project.csr}}</option>
+          </select>
+    </div>
+
+    <div>
+      <label for="month">Month:</label>
+      <select id="month" required [(ngModel)]="actualModel.monthNumber" name="monthNumber">
+       <option *ngFor="let month of months" [value]="month">{{month}}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="total">Total</label>
+      <input type="number" id="total" required [(ngModel)]="actualModel.total" name="total">
+    </div>
+
+    <div>
+      <label for="capEx">Cap Expected</label>
+      <input type="number" id="capEx" required [(ngModel)]="actualModel.capEx" name="capEx">
+    </div>
+    <button type="submit" (click)="processWithinAngularZone()">Submit</button>
+  </form>
+</div>
+
+

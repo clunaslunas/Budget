@@ -1,0 +1,54 @@
+<app-person-list></app-person-list>
+<button (click)="newPerson()">Enter a new person</button>
+<div *ngIf="new">
+  <h1>
+  Create a person
+</h1>
+<div>
+  <form (ngSubmit)="onSubmit(personForm)" #personForm="ngForm">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required [(ngModel)] = "model.firstName" name="firstName">
+    </div>
+
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required [(ngModel)] = "model.lastName" name="lastName">
+    </div>
+
+    <div>
+      <label for="type">Type:</label>
+      <select id="type" required [(ngModel)] = "model.type" name="type">
+        <option *ngFor="let type of types" [value]="type">{{type}}</option>
+      </select>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<div *ngIf="created">
+  <h3>Set department</h3>
+  <form (ngSubmit)="setDepartment(departmentForm)" #departmentForm="ngForm">
+      <div>
+      <label for="department">Department</label>
+      <select id="department" required [(ngModel)] = "department" name="department">
+        <option *ngFor="let department of departments" [value]="department._links.self.href">{{department?.name}}</option>
+      </select>
+      <button type="submit">Set Department</button>
+    </div>
+  </form>  
+</div>
+
+<div *ngIf="created">
+  <h3>Set rate</h3>
+  <form (ngSubmit)="setRate(rateForm)" #rateForm="ngForm">  
+    <div>
+      <label for="rate">Rate</label>
+      <select id="rate" required [(ngModel)] = "rate" name="rate">
+        <option *ngFor="let rate of rates" [value]="rate._links.self.href">{{rate?.name}}</option>
+      </select>
+      <button type="submit">Set Rate</button>
+    </div>
+  </form>  
+</div>
+</div>
+

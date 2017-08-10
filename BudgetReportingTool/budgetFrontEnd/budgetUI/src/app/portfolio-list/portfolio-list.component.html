@@ -1,0 +1,49 @@
+<table class="table table-striped table-bordered">
+  <tr>
+    <th colspan="6"><h1>Portfolios</h1></th>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Year</th>
+    <th>Annual Budget</th>
+    <th *ngIf="!editable">Delete</th>
+    <th *ngIf="!editable">Edit</th>
+  </tr>
+  <tr #row *ngFor="let portfolio of portfolios">
+    <td *ngIf="!(rowToEdit === row)">{{portfolio?.portfolioName}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{portfolio?.portfolioType}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{portfolio?.year}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{portfolio?.annualBudget}}</td>
+    <td *ngIf="editable && rowToEdit === row">
+      <form class="form-inline" (ngSubmit)="onSubmit(portfolioForm)" #portfolioForm="ngForm">      
+        <div class="form-group">
+          <label for="year">{{portfolio?.year}}</label>
+          <input type="text" id="year" [(ngModel)]="portfolioToEdit.year" name="year">
+        </div>
+
+        <div class="form-group">
+          <label for="portfolioName">{{portfolio?.portfolioName}}</label>
+          <input type="text" id="portfolioName" [(ngModel)]="portfolioToEdit.portfolioName" name="portfolioName">
+        </div>
+
+        <div class="form-group">
+          <label for="portfolioType">{{portfolio?.portfolioType}}</label>
+          <select for="portfolioType" [(ngModel)]="portfolioToEdit.portfolioType" name="portfolioName">
+            <option *ngFor="let type of types" [value]="type">{{type}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="annualBudget">{{portfolio?.annualBudget}}</label>
+          <input type="number" id="annualBudget" [(ngModel)]="portfolioToEdit.annualBudget" name="annualBudget">
+        </div>
+        <button type="submit" (click)="editPortfolio(portfolio)" (click)="resetForm(portfolioForm)" (click)="processWithinAngularZone()">Submit</button>
+        <button type="button" (click)="toggleEditable()" (click)="resetForm(portfolioForm)" (click)="setRowToEdit()">Cancel</button>
+  </form>
+    </td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-danger" (click)="deletePortfolio(portfolio._links.self.href)" (click)="processWithinAngularZone()">Delete</button></td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-primary" (click)="toggleContentEditable(row)">Edit this projection</button></td>
+  </tr>
+  
+</table>    

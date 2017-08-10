@@ -1,0 +1,48 @@
+<table class="table table-striped table-bordered">
+  <tr>
+    <th colspan="6"><h1>Actuals</h1></th>
+  </tr>
+  <tr>
+    <th>Project CSR</th>
+    <th>Month Number</th>
+    <th>Total</th>
+    <th>Cap Expected</th>
+    <th *ngIf="!editable">Delete</th>
+    <th *ngIf="!editbale">Edit</th>
+  </tr>
+  <tr #row *ngFor="let actual of actuals">
+    <td *ngIf="!(rowToEdit === row)">{{actual?.project?.csr}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{actual?.monthNumber}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{actual?.total}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{actual?.capEx}}</td>
+    <td *ngIf="editable && rowToEdit === row">
+      <form class="form-inline" (ngSubmit)="onSubmit(actualForm)" #actualForm="ngForm">
+      <div class="form-group" ngModelGroup="actualToEdit" #projectCtrl="ngModelGroup">
+        <label for="project">{{actual?.project?.csr}}</label>
+        <select id="project" [(ngModel)]="actualToEdit.project" name="project">
+            <option *ngFor="let project of projects" [value]="project._links.self.href">{{project.csr}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="month">{{actual?.monthNumber}}</label>
+        <select id="month" [(ngModel)]="actualToEdit.monthNumber" name="monthNumber">
+          <option *ngFor="let month of months" [value]="month">{{month}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="total">{{actual?.total}}</label>
+        <input type="number" id="total" [(ngModel)]="actualToEdit.total" name="total">
+      </div>
+      <div class="form-group">
+        <label for="capEx">{{actual?.capEx}}</label>
+        <input type="number" id="capEx" [(ngModel)]="actualToEdit.capEx" name="capEx">
+      </div>
+      <button type="submit" (click)="editActual(actual)" (click)="resetForm(actualForm)" (click)="processWithinAngularZone()">Submit</button>
+      <button type="button" (click)="toggleEditable()" (click)="resetForm(actualForm)" (click)="setRowToEdit()">Cancel</button>
+  </form>
+    </td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-danger" (click)="deleteActual(actual._links.self.href)" (click)="processWithinAngularZone()">Delete</button></td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-primary" (click)="toggleContentEditable(row)">Edit this projection</button></td>
+  </tr>
+</table>
+    

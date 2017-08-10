@@ -1,0 +1,29 @@
+<app-projection-list></app-projection-list>
+<button (click)="setCreate()" (click)="ngOnInit()">Enter new projection</button>
+<div *ngIf="create">
+    <h1>
+      Enter a new projection
+    </h1>
+    <div>
+      <form (ngSubmit)="onSubmit(projectionForm)" #projectionForm="ngForm">
+        <div class="form-group" ngModelGroup="projectionModel" #projectionCtrl="ngModelGroup">
+          <label for="project">Project:</label>
+          <select id="project" required [(ngModel)]="projectionModel.project" name="project">
+            <option *ngFor="let project of projects" [value]="project._links.self.href">{{project.csr}}</option>
+          </select>
+          <label for="person">Person:</label>
+          <select id="person" required [(ngModel)]="projectionModel.person" name="person">
+            <option *ngFor="let person of persons" [value]="person._links.self.href">{{person.firstName}} {{person.lastName}}</option>
+          </select>
+          <label for="month">Month:</label>
+          <select id="month" required [(ngModel)]="projectionModel.month" name="month">
+            <option *ngFor="let month of months" [value]="month">{{month}}</option>
+          </select>                
+          <label for="percentAllocation">Allocation:</label>
+          <input type="number" id="percentAllocation" required [(ngModel)]="projectionModel.percentAllocation" name="percentAllocation">    
+        </div>
+
+        <button type="submit" (click)="processWithinAngularZone()">Submit</button>
+      </form>
+    </div>
+</div>

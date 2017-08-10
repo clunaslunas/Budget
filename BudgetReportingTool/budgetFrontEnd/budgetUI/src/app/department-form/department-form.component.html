@@ -1,0 +1,18 @@
+<app-department-list></app-department-list>
+<button (click)="newDepartment()">Enter new Department</button>
+<div *ngIf="createDepartment">
+<h1>
+  Enter new department
+</h1>
+<div>
+  <form (ngSubmit)="onSubmit(departmentForm)" #departmentForm="ngForm">
+    <div>
+      <label for="name">Name: </label>
+      <input type="text" id="name" required [(ngModel)] = "departmentModel.name" name="name">
+      <button type="submit" (click)="processWithinAngularZone()">Submit</button>
+      <button type="button" (click)="newDepartment()" (click)="resetForm(departmentForm)">Cancel</button>
+    </div>
+  </form>
+</div>
+</div>
+      

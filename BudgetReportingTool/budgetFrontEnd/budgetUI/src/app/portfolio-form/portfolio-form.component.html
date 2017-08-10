@@ -1,0 +1,31 @@
+<app-portfolio-list></app-portfolio-list>
+<button type="button" (click)="setCreate()">Enter new portfolio</button>
+
+<div *ngIf="create">
+  <form (ngSubmit)="onSubmit(portfolioForm)" #portfolioForm="ngForm">
+    
+    <div>
+      <label for="year">Year:</label>
+      <input type="text" id="year" required [(ngModel)]="portfolioModel.year" name="year">
+    </div>
+
+    <div>
+      <label for="portfolioName">Name:</label>
+      <input type="text" id="portfolioName" required [(ngModel)]="portfolioModel.portfolioName" name="portfolioName">
+    </div>
+
+    <div>
+      <label for="portfolioType">Type:</label>
+      <select for="portfolioType" required [(ngModel)]="portfolioModel.portfolioType" name="portfolioName">
+        <option *ngFor="let type of types" [value]="type">{{type}}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="annualBudget">Annual Budget:</label>
+      <input type="number" id="annualBudget" required [(ngModel)]="portfolioModel.annualBudget" name="annualBudget">
+    </div>
+
+    <button type="submit" (click)="processWithinAngularZone()">Submit</button>
+  </form>
+</div>

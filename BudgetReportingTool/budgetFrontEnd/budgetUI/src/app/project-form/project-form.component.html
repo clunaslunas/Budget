@@ -1,0 +1,33 @@
+<app-project-list></app-project-list>
+
+<button type="button" (click)="setCreate()">New project</button>
+
+<div *ngIf="create">
+  
+  <h1>
+    Create a project
+  </h1>
+  <div>
+    <form (ngSubmit)="onSubmit(projectForm)" #projectForm="ngForm">
+      
+      <div>
+        <label for="csr">CSR:</label>
+        <input type="text" id="csr" required [(ngModel)]="projectModel.csr" name="csr">
+      </div>
+
+      <div ngModelGroup="projectModel" #projectCtrl="ngModelGroup">
+        <label for="portfolio">Portfolio:</label>
+        <select id="portfolio" required [(ngModel)]="projectModel.portfolio" name="portfolio">
+          <option *ngFor="let portfolio of portfolios" [value]="portfolio._links.self.href">{{portfolio.portfolioName}}</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="description">Description:</label>
+        <input type="text" id="description" required [(ngModel)]="projectModel.description" name="description">
+      </div>
+
+      <button type="submit" (click)="processWithinAngularZone()">Submit</button>
+    </form>
+  </div>
+</div>

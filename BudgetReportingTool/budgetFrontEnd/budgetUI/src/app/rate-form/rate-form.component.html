@@ -1,0 +1,19 @@
+<app-rate-list></app-rate-list>
+<button (click)="setNewRate()">Enter new rate</button> 
+
+<div *ngIf="newRate">
+  <h1>Enter new rate</h1>
+  <div>
+    <form (ngSubmit)="onSubmit(rateForm)" #rateForm="ngForm">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required [(ngModel)] = "rateModel.name" name="name">
+
+        <label for="hourlyRate">Hourly Rate:</label>
+        <input type="number" id="hourlyRate" required [(ngModel)]="rateModel.hourlyRate" name="hourlyRate">
+        <button type="submit" (click)="processWithinAngularZone()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+

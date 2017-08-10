@@ -1,0 +1,52 @@
+<table class="table table-striped table-bordered">
+  <th colspan="7"><h1>Projections</h1></th>
+  <tr>
+    <th>Person</th>
+    <th>Project CSR</th>
+    <th>Description</th>
+    <th>Month</th>
+    <th>Allocation</th>
+    <th *ngIf="!editable">Delete</th>
+    <th *ngIf="!editable">Edit</th>
+  </tr>
+  <tr #row *ngFor="let projection of projections">
+    <td *ngIf="!(rowToEdit === row)">{{projection?.person?.firstName}} {{projection?.person?.lastName}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{projection?.project?.csr}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{projection?.project?.description}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{projection?.month}}</td>
+    <td *ngIf="!(rowToEdit === row)">{{projection?.percentAllocation}}</td>
+    <td *ngIf="editable && rowToEdit === row">
+      <form class="form-inline" (ngSubmit)="onSubmit(projectionForm)" #projectionForm="ngForm">
+        <div class="form-group">    
+          <label for="project">{{projection?.project?.csr}}</label>
+            <select id="project" [(ngModel)]="projectionToEdit.project" name="project">
+              <option *ngFor="let project of projects" [value]="project._links.self.href">{{project.csr}}</option>
+          </select> 
+        </div>
+        <div class="form-group">          
+          <label for="person">{{projection?.person?.firstName}} {{projection?.person?.lastName}}</label>
+          <select id="person" [(ngModel)]="projectionToEdit.person" name="person">
+            <option *ngFor="let person of persons" [value]="person._links.self.href">{{person.firstName}} {{person.lastName}}</option>
+          </select>
+        </div>
+        <div class="form-group">        
+          <label for="month">{{projection?.month}}</label>
+          <select id="month" required [(ngModel)]="projectionToEdit.month" name="month">
+            <option *ngFor="let month of months" [value]="month">{{month}}</option>
+          </select>     
+        </div>
+        <div class="form-group">
+          <label  for="percentAllocation">{{projection?.percentAllocation}}</label>
+          <input class="form-control" type="number" id="percentAllocation" [(ngModel)]="projectionToEdit.percentAllocation" name="percentAllocation">              
+        </div>
+        <button type="submit" (click)="editProjection(projection)" (click)="processWithinAngularZone()" (click)="resetForm(projectionForm)">Submit</button>
+        <button type="button" (click)="toggleEditable()" (click)="resetForm(projectionForm)" (click)="setRowToEdit()">Cancel</button>
+      </form>      
+    </td>    
+    <td *ngIf="!editable"><button type="button" class="btn btn-danger" (click)="deleteProjection(projection._links.self.href)" (click)="processWithinAngularZone()">Delete</button></td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-primary" (click)="toggleContentEditable(row)">Edit this projection</button></td>
+  </tr>
+</table>
+    
+
+

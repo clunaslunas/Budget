@@ -1,0 +1,21 @@
+<table class="table table-striped table-bordered row col-md-1">
+  <th><h1>Departments</h1></th>
+  <tr>
+  <th>Name</th>
+  <th>Delete</th>
+  <th>Edit</th>
+  </tr>
+  <tr #row *ngFor="let department of departmentList">
+    <td *ngIf="!(rowToEdit === row)">{{department?.name}}</td>
+    <td *ngIf="editable && rowToEdit === row">
+      <form class="form-inline" (ngSubmit)="onSubmit(departmentForm)" #departmentForm="ngForm">
+        <label for="name">{{department?.name}}</label>
+        <input type="text" id="name" [(ngModel)] = "departmentToEdit.name" name="name">          
+        <button type="submit" class="btn btn-primary" (click)="editDepartment(department)" (click)="processWithinAngularZone()" (click)="resetForm(departmentForm)">Submit</button>
+        <button type="button" class="btn btn-primary" (click)="toggleEditable()" (click)="resetForm(departmentForm)" (click)="reload()">Cancel</button>
+      </form>
+    </td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-danger" (click)="deleteDepartment(department._links.self.href)" (click)="processWithinAngularZone()">Delete</button></td>
+    <td *ngIf="!editable"><button type="button" class="btn btn-primary" (click)="toggleContentEditable(row)">Edit Department</button></td>              
+  </tr>
+</table>
