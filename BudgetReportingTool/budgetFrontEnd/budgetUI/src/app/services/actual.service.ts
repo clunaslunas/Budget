@@ -8,7 +8,7 @@ import { EditService } from '../services/edit.service';
 
 @Injectable()
 export class ActualService {
-  private actualsURL = 'http://localhost:8080/actuals';
+  private actualsURL = 'http://40.80.152.41:5000/actuals';
   private actualURL;
   private projectURL;
 

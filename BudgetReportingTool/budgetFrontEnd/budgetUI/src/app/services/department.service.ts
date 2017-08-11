@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DepartmentService {
   
-  private departmentsURL = 'http://localhost:8080/departments';
+  private departmentsURL = 'http://40.80.152.41:5000/departments';
   private departmentURL;
   department: Department;
 

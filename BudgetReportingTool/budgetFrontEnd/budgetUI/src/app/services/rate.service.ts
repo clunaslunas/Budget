@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RateService {
   private rateURL;
-  private ratesURL = 'http://localhost:8080/rates';
+  private ratesURL = 'http://40.80.152.41:5000/rates';
   rate: Rate;
 
   constructor(private http: Http, private deleteService: DeleteService, private editService: EditService) {}

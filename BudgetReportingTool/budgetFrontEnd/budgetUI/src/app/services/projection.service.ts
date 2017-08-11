@@ -12,7 +12,7 @@ import { EditService } from '../services/edit.service';
 @Injectable()
 export class ProjectionService {
 
-  private projectionsURL = 'http://localhost:8080/projections';
+  private projectionsURL = 'http://40.80.152.41:5000/projections';
   private projectionURL;
   private projectionPersonURL;
   private projectionProjectURL;

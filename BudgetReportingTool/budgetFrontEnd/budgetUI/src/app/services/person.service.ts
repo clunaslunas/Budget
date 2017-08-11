@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PersonService {
-  private personsURL = 'http://localhost:8080/persons';
+  private personsURL = 'http://40.80.152.41:5000/persons';
   private personURL;
   private departmentURL;
   private rateURL;

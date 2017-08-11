@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PortfolioService {
 
-  private portfoliosURL = 'http://localhost:8080/portfolios';
+  private portfoliosURL = 'http://40.80.152.41:5000/portfolios';
   private portfolioURL;
 
   constructor(private http: Http, private deleteService: DeleteService, private editService: EditService) { }
